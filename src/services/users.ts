@@ -1,8 +1,8 @@
 import { User } from "../models/User";
 
-export class userService {
+export default class UserService {
     //create a user
-    async createUser(data: any) {
+    public static async createUser(data: any) {
         try {
             await User.init();
             const existingUser = await User.find({username: data.username});
@@ -17,7 +17,7 @@ export class userService {
     }
 
     //get users
-    async getUsers() {
+    public static async getUsers() {
         try {
             const users = await User.find({});
             return users;
@@ -27,7 +27,7 @@ export class userService {
     }
 
     //get a user
-    async getUser(id: string) {
+    public static async getUser(id: string) {
         try {
             const user = await User.findById({_id:id});
             return user;
@@ -37,7 +37,7 @@ export class userService {
     }
 
     //update a user
-    async updateUser(id: string, body: any) {
+    public static async updateUser(id: string, body: any) {
         try {
             const user = await User.findByIdAndUpdate({_id:id}, body, {new: true});
             return user;
@@ -47,7 +47,7 @@ export class userService {
     }
 
     //delete a user
-    async deleteUser(id: string) {
+    public static async deleteUser(id: string) {
         try {
             const user = await User.findByIdAndDelete({_id:id});
             return user;
@@ -56,5 +56,3 @@ export class userService {
         }
     }
 }
-
-export const UserService = new userService();

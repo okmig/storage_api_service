@@ -1,8 +1,8 @@
-import { UserService } from "../services/users";
+import UserService from "../services/users";
 import { Request, Response } from "express";
 
-class userController {
-    async createUser(req: Request, res: Response) {
+export default class UserController {
+    public static async createUser(req: Request, res: Response) {
         try {
             const user = await UserService.createUser(req.body);
             if (user === false) {
@@ -20,7 +20,7 @@ class userController {
         }
     }
 
-    async getUsers(req: Request, res: Response) {
+    public static async getUsers(req: Request, res: Response) {
         try {
             const users = await UserService.getUsers();
             res.status(200).json({users});
@@ -29,7 +29,7 @@ class userController {
         }
     }
 
-    async getUser(req: Request, res: Response) {
+    public static async getUser(req: Request, res: Response) {
         try {
             const userId = req.params.id;
             const user = await UserService.getUser(userId);
@@ -42,7 +42,7 @@ class userController {
         }
     }
 
-    async updateUser(req: Request, res: Response) {
+    public static async updateUser(req: Request, res: Response) {
         try {
             const userId = req.params.id;
             const body = req.body;
@@ -56,7 +56,7 @@ class userController {
         }
     }
 
-    async deleteUser(req: Request, res: Response) {
+    public static async deleteUser(req: Request, res: Response) {
         try {
             const userId = req.params.id;
             const body = req.body;
@@ -70,5 +70,3 @@ class userController {
         }
     }
 }
-
-export const UserController = new userController();

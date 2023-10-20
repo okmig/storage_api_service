@@ -9,7 +9,6 @@ services:
       target: base
     volumes:
       - ./src:/home/node/app/src
-      - ./nodemon.json:/home/node/app/nodemon.json
     depends_on:
       - db
     expose:
