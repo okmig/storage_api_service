@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  ts-node-docker:
+    container_name: storage_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    volumes:
+      - ./src:/home/node/app/src
+      - ./nodemon.json:/home/node/app/nodemon.json
+    depends_on:
+      - db
+    expose:
+      - '4000'
+    ports:
+      - '4000:4000'
+    command: npm run dev
+    networks:
+      - my_app_network
+  db:
+    image: mongo
+    restart: always
+    volumes:
+      - mongo-db:/data/db
+    expose: 
+      - '27017'
+    ports:
+      - '27017:27017'
+    networks:
+      - my_app_network
+
+networks:
+  my_app_network:
+    name: service_network
+
+volumes:
+  mongo-db:
